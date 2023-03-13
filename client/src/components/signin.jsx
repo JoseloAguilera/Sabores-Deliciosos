@@ -58,8 +58,8 @@ class SignIn extends Form {
 		return (
 			<div className="container mt-4">
 				<PageHeader
-					titleText="Sign In"
-					description="Sign in to Food Trip app."
+					titleText="Iniciar Sesion"
+					description="Inicia Sesion en Sabores Deliciosos."
 				/>
 				<div className="row mt-5">
 					<div className="col-lg-6 mx-auto">

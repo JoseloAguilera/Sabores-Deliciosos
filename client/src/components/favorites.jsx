@@ -28,8 +28,8 @@ const Favorites = () => {
 	return (
 		<div className="container mt-4">
 			<PageHeader
-				titleText="Favorites"
-				description="Your favorites recipes page."
+				titleText="Favoritos"
+				description="Tus recetas favoritas."
 			/>
 			<div className="row mx-auto mt-4">
 				{data &&

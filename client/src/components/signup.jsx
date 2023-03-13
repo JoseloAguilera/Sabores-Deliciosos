@@ -58,8 +58,8 @@ class SignUp extends Form {
 		return (
 			<div className="container mt-4">
 				<PageHeader
-					titleText="Sign Up"
-					description="Sign Up to Food Trip app for free."
+					titleText="Registro"
+					description="Registrate en Sabores Deliciosos."
 				/>
 				<div className="row mt-5">
 					<div className="col-lg-6 mx-auto">
