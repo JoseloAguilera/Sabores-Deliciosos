@@ -3,10 +3,9 @@ import { useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { UserContext } from "../App";
 import "../styles/header.css";
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const Header = () => {
-	let user = useContext(UserContext);;
+	let user = useContext(UserContext);
 	return (
 		<header className="font-weight-bolder sticky-top">
 			<nav className="navbar navbar-expand-lg shadow navbar-light">
@@ -53,13 +52,25 @@ const Header = () => {
 					{user && (
 						<ul className="navbar-nav mr-3">
 							<li className="nav-item dropdown mx-5">
-								<NavDropdown title={user.nombre} /* id="navbarScrollingDropdown" */ className="nanLink">
-									<NavDropdown.Item href="/logout">
-										<div className="nav-link nanLink" >
-											<i className="fas fa-sign-in-alt"></i>&nbsp; Logout
-										</div>
-								</NavDropdown.Item>
-								</NavDropdown>
+								<Link
+									className="nav-link dropdown-toggle nanLink"
+									to="#"
+									id="navbarDropdown"
+									role="button"
+									data-toggle="dropdown"
+									aria-haspopup="true"
+									aria-expanded="false"
+								>
+									<i className="fas fa-user"></i> &nbsp; {user.nombre} &nbsp;
+								</Link>
+								<div
+									className="dropdown-menu scroll-logout"
+									aria-labelledby="navbarDropdown"
+								>
+									<NavLink className="dropdown-item " to="/logout">
+										<i className="fas fa-sign-out-alt"></i> &nbsp; Log-out
+									</NavLink>
+								</div>
 							</li>
 						</ul>
 					)}

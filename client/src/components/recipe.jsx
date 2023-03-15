@@ -46,6 +46,8 @@ const Recipe = ({ recipe }) => {
 			});
 			return recipe._id;
 		} catch (err) {
+			console.log("Aca llegué");
+			console.log(recipe);
 			return err;
 		}
 	};
@@ -71,6 +73,7 @@ const Recipe = ({ recipe }) => {
 
 	
 	console.log(recipe);
+
 
 	return (
 		<div className="card m-3" style={{ width: "18rem" }}>

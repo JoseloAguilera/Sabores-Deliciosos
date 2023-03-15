@@ -12,7 +12,7 @@ module.exports = (app) => {
     app.get('/recetas/mis-recetas', auth, recetaController.getMyRecipes);
     app.put('/recetas/edit/:id', auth, recetaController.actualizarReceta);
     app.delete('/recetas/delete/:id', auth, recetaController.deleteRecipeById);
-    app.get('/recetas/favoritos', auth, recetaController.getFavoritos);
+    app.get('/recetas/favoritos/:id', auth, recetaController.getFavoritos);
     app.post('/recetas/favoritos', auth, recetaController.addToFavorites);
     app.delete('/recetas/favoritos/:id', auth, recetaController.removeFromFavorites);
     app.get('/recetas/usuario-receta/:id', auth, recetaController.buscarUsuarioPorReceta);

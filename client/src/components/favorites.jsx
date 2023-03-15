@@ -4,16 +4,19 @@ import httpService from "../services/httpService";
 import { PageHeader } from "./common/pageHeader";
 import Recipe from "./recipe";
 import config from "../config.json";
+import { useParams } from "react-router-dom";
 const { apiUrl } = config;
 
 const Favorites = () => {
+	const id = useParams();
+	console.log(id);
 	const user = useContext(UserContext);
 	const [data, setData] = useState();
 	useEffect(() => {
 		//for unmounting the data
 		let mount = true;
 		httpService
-			.get(`${apiUrl}/recetas/favoritos`)
+			.get(`${apiUrl}/recetas/favoritos/${id}`)
 			.then((data) => {
 				if (mount) {
 					setData(data.data);

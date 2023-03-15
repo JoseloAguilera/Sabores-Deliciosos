@@ -18,6 +18,10 @@ header,
 	color: white !important;
 }
 
+.nanLink > a {
+	color: white !important;
+}
+
 .nanLink:hover {
 	transition: all 0.3s;
 	transform: scale(1.2);

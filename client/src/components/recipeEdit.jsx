@@ -1,13 +1,19 @@
-import React from "react";
+import React, {Component} from "react";
 import Joi from "joi-browser";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Form from "./common/form";
 import { PageHeader } from "./common/pageHeader";
 import recipeService from "../services/recipeService";
 import httpService from "../services/httpService";
 import config from "../config.json";
 const { apiUrl } = config;
+
+
+function withParams(Component) {
+  return props => <Component {...props} params={useParams()} />;
+}
+
 
 class RecipeEdit extends Form {
   state = {
@@ -43,17 +49,28 @@ class RecipeEdit extends Form {
   }
 
   //change the file by the given file
-  handleOnChange = (e) => {
+ /*  handleOnChange = (e) => {
     document.querySelector('.custom-file-label').innerText = e.target.files[0].name;
-    this.setState(this.state.data.foto = e.target.files[0]);
+    this.setState({ data: { ...this.state.data, foto: e.target.files[0] } });
     console.log(this.state.data.foto);
   }
-
+ */
+  handleOnChange = (e) => {
+    const file = e.target.files[0];
+    document.querySelector('.custom-file-label').innerText = file.name;
+    this.setState({
+      data: {
+        ...this.state.data,
+        foto: file
+      }
+    });
+    console.log(this.state.data.foto);
+  }
   //reflection the given prop data 
   mapToViewModel = (recipe) => {
     return {
       _id: recipe._id,
-      title: recipe.title,
+      titulo: recipe.titulo,
       ingredientes: recipe.ingredientes,
       instrucciones: recipe.instrucciones
     };
@@ -61,9 +78,10 @@ class RecipeEdit extends Form {
 
   //showing the data from the server
   async componentDidMount() {
-    console.log(this.props);
-    const recipeId = this.props.match.params.id;
+    console.log(this.props.params);
+    const recipeId = this.props.params.id;
     const { data } = await recipeService.getRecipe(recipeId);
+    console.log(data);
     this.setState({ data: this.mapToViewModel(data) });
   }
 
@@ -78,7 +96,7 @@ class RecipeEdit extends Form {
       form.append('foto', foto);
       form.append('ingredientes', ingredientes);
       form.append('instrucciones', instrucciones);
-      await httpService.put(`${apiUrl}/recetas/${_id}`, form, {
+      await httpService.put(`${apiUrl}/recetas/edit/${_id}`, form, {
         headers: {
           'content-type': 'multipart/form-data'
         }
@@ -94,7 +112,7 @@ class RecipeEdit extends Form {
       form.append('titulo', titulo);
       form.append('ingredientes', ingredientes);
       form.append('instrucciones', instrucciones);
-      await httpService.put(`${apiUrl}/recetas/${_id}`, form, {
+      await httpService.put(`${apiUrl}/recetas/edit/${_id}`, form, {
         headers: {
           'content-type': 'multipart/form-data'
         }
@@ -109,7 +127,7 @@ class RecipeEdit extends Form {
       draggable: true,
       progress: undefined,
     });
-    history.replace("/recetas");
+    window.location = "/recetas";
   }
 
   render() {
@@ -118,8 +136,8 @@ class RecipeEdit extends Form {
     return (
       <div className="container">
         <PageHeader
-          titleText="Edit recipe."
-          description="Edit your recipe and make it better one."
+          titleText="Editar receta."
+          description="Edita tu receta."
         />
         <div className="row mt-5">
           <div className="col-lg-6 mx-auto">
@@ -155,4 +173,4 @@ class RecipeEdit extends Form {
 }
 
 
-export default RecipeEdit;
+export default withParams(RecipeEdit);
